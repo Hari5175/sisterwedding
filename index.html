@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Arjun & Isha | The Royal Wedding</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              'wedding-red': '#8B0000', // Deep Dark Red
+              'wedding-crimson': '#DC143C',
+              'wedding-gold': '#D4AF37',
+              'wedding-cream': '#FFFAF0',
+              'wedding-paper': '#FDF5E6',
+            },
+            fontFamily: {
+              'display': ['"Cinzel Decorative"', 'cursive'],
+              'script': ['"Great Vibes"', 'cursive'],
+              'serif': ['"Playfair Display"', 'serif'],
+              'body': ['"Lato"', 'sans-serif'],
+            },
+            backgroundImage: {
+              'mandala-pattern': "url('https://www.transparenttextures.com/patterns/arabesque.png')",
+            },
+            animation: {
+              'float': 'float 6s ease-in-out infinite',
+              'float-delayed': 'float 6s ease-in-out 3s infinite',
+              'spin-slow': 'spin 12s linear infinite',
+              'sway': 'sway 4s ease-in-out infinite',
+            },
+            keyframes: {
+              float: {
+                '0%, 100%': { transform: 'translateY(0)' },
+                '50%': { transform: 'translateY(-20px)' },
+              },
+              sway: {
+                '0%, 100%': { transform: 'rotate(-5deg)' },
+                '50%': { transform: 'rotate(5deg)' },
+              }
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      body {
+        background-color: #FDF5E6;
+        overflow-x: hidden;
+      }
+      .ornate-border {
+        border: 2px solid #D4AF37;
+        padding: 4px;
+        position: relative;
+      }
+      .ornate-border::before, .ornate-border::after {
+        content: '';
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        border: 2px solid #D4AF37;
+        transition: all 0.3s ease;
+      }
+      .ornate-border::before { top: -2px; left: -2px; border-right: 0; border-bottom: 0; }
+      .ornate-border::after { bottom: -2px; right: -2px; border-left: 0; border-top: 0; }
+      
+      /* Petal Animation */
+      .petal {
+        position: fixed;
+        top: -10vh;
+        background-color: #DC143C;
+        width: 15px;
+        height: 15px;
+        border-radius: 10px 0px 10px 0px;
+        opacity: 0.8;
+        z-index: 9999;
+        pointer-events: none;
+        animation: fall linear forwards;
+      }
+      
+      @keyframes fall {
+        to {
+          transform: translateY(110vh) rotate(720deg);
+        }
+      }
+
+      /* Custom Scrollbar */
+      ::-webkit-scrollbar {
+        width: 10px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #FDF5E6; 
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #8B0000; 
+        border-radius: 5px;
+        border: 1px solid #D4AF37;
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "react": "https://esm.sh/react@^19.2.3",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "@google/genai": "https://esm.sh/@google/genai@^1.33.0"
+  }
+}
+</script>
+</head>
+  <body class="antialiased text-gray-900">
+    <div id="root"></div>
+  </body>
+</html>
