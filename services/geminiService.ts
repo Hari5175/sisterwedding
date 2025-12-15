@@ -4,25 +4,43 @@ import { WEDDING_EVENTS, COUPLE_NAMES } from '../constants';
 let chatSession: Chat | null = null;
 
 const getSystemInstruction = () => {
+  // Simplify the event list format for the AI to process easily
   const eventsList = WEDDING_EVENTS.map(e => 
-    `- ${e.date}: ${e.title} at ${e.time} (${e.location}). ${e.description}`
+    `- ${e.title}: ${e.date} @ ${e.time} (${e.location})`
   ).join('\n');
 
+  const dressCodes = `
+    Dress Code Rules:
+    - Anugraham: Women (Kerala Kasavu Saree), Men (Mundu)
+    - Sangeet: Women (Blood Red), Men (Black)
+    - Haldi: White or Pink
+    - Temple Wedding: Traditional Indian
+    - Destination Wedding: Women (Maroon & Gold Saree), Men (Maroon)
+    - Destination Reception (Kochi): White theme
+    - Kozhikode Reception: Indian Maximalist
+  `;
+
   return `
-    You are the "Royal Wedding Assistant" AI for ${COUPLE_NAMES}'s wedding.
-    Your tone should be polite, celebratory, and slightly formal (royal/elegant Indian style).
+    You are a wedding assistant for ${COUPLE_NAMES}.
     
-    Theme: Indian Maximalist, Red & White.
-    
-    Here is the Schedule of Events:
+    DATA:
     ${eventsList}
     
-    Instructions:
-    1. Answer questions about dates, times, and locations based strictly on the schedule above.
-    2. If asked about dress code, suggest "Indian Ethnic Wear" with a focus on the Red and White color palette, or Gold accents.
-    3. If asked about RSVP, guide them to the RSVP section at the bottom of the page.
-    4. Be concise but warm. Use emojis like ✨, 💍, 🌺, 🙏.
-    5. If you don't know an answer, politely say you will ask the couple to get back to them.
+    ${dressCodes}
+    
+    STRICT RESPONSE RULES:
+    1. BE EXTREMELY CONCISE. Limit answers to 1-2 short sentences.
+    2. NO flowery, royal, or poetic language. Just facts.
+    3. Use bullet points if listing more than one thing.
+    4. If asked about dress code, just state the color/outfit directly.
+    5. If asked about RSVP, say "Please check the RSVP section below."
+    
+    Example Style:
+    User: "When is the Sangeet?"
+    You: "16th at 6:00 PM, Family Residence."
+    
+    User: "What do I wear for Haldi?"
+    You: "White or Pink."
   `;
 };
 
@@ -46,15 +64,15 @@ export const initializeChat = (): Chat => {
 
 export const sendMessageToGemini = async (message: string): Promise<string> => {
   if (!process.env.API_KEY) {
-    return "Please configure the API_KEY to enable the Wedding Assistant.";
+    return "Please set the API_KEY.";
   }
 
   try {
     const chat = chatSession || initializeChat();
     const result: GenerateContentResponse = await chat.sendMessage({ message });
-    return result.text || "I apologize, I couldn't process that. Please try again.";
+    return result.text || "Sorry, I couldn't get that.";
   } catch (error) {
     console.error("Error sending message to Gemini:", error);
-    return "I'm having a little trouble connecting to the spirits of celebration right now. Please try again later. 🙏";
+    return "Connection error. Please try again.";
   }
 };

@@ -8,7 +8,7 @@ const ChatWidget: React.FC = () => {
     {
       id: '0',
       role: 'model',
-      text: 'Namaste! I am the Royal Wedding Assistant. How may I help you today? ✨',
+      text: 'Namaste! How can I help with the wedding plans?',
       timestamp: new Date()
     }
   ]);
@@ -68,8 +68,7 @@ const ChatWidget: React.FC = () => {
             <div className="flex items-center gap-2">
               <span className="text-2xl">🐘</span>
               <div>
-                <h3 className="font-serif font-bold">Wedding Assistant</h3>
-                <p className="text-xs text-wedding-gold">Powered by Gemini AI</p>
+                <h3 className="font-serif font-bold text-lg">Wedding Assistant</h3>
               </div>
             </div>
             <button onClick={() => setIsOpen(false)} className="text-white hover:text-wedding-gold">
@@ -87,7 +86,7 @@ const ChatWidget: React.FC = () => {
                 className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
               >
                 <div 
-                  className={`max-w-[80%] p-3 rounded-lg text-sm shadow-sm ${
+                  className={`max-w-[85%] p-3 rounded-lg text-base shadow-sm leading-snug ${
                     msg.role === 'user' 
                       ? 'bg-wedding-red text-white rounded-br-none' 
                       : 'bg-white text-gray-800 border border-wedding-gold rounded-bl-none'
@@ -118,13 +117,13 @@ const ChatWidget: React.FC = () => {
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
               onKeyDown={handleKeyPress}
-              placeholder="Ask about schedule, dress code..."
-              className="flex-1 border border-gray-300 rounded-full px-4 py-2 text-sm focus:outline-none focus:border-wedding-red"
+              placeholder="Type your question..."
+              className="flex-1 border border-gray-300 rounded-full px-4 py-2 text-base focus:outline-none focus:border-wedding-red"
             />
             <button 
               onClick={handleSend}
               disabled={isLoading || !inputValue.trim()}
-              className="bg-wedding-red text-white p-2 rounded-full hover:bg-red-900 disabled:opacity-50 transition-colors"
+              className="bg-wedding-red text-white p-3 rounded-full hover:bg-red-900 disabled:opacity-50 transition-colors"
             >
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                 <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" />
@@ -140,10 +139,6 @@ const ChatWidget: React.FC = () => {
         className={`${isOpen ? 'scale-0' : 'scale-100'} transition-transform duration-300 bg-wedding-red text-white w-16 h-16 rounded-full shadow-lg border-2 border-wedding-gold flex items-center justify-center hover:bg-red-900 group`}
       >
          <span className="text-3xl group-hover:scale-110 transition-transform">💬</span>
-         <span className="absolute -top-1 -right-1 flex h-3 w-3">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-wedding-gold opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-3 w-3 bg-wedding-gold"></span>
-          </span>
       </button>
     </div>
   );
